@@ -28,10 +28,31 @@ app.post('/api/notes', (req, res) => {
 
        fs.writeFile('./db/db.json', JSON.stringify(notes), err => {
         console.log(err);
-        // res.json(notes)
         })
     });
 });
+
+app.delete('/api/notes/:note', (req, res) => {
+        // user wants to delete a note
+        // which note do they want to delete?
+        // edit our "DB" to reflect the delete
+
+        console.log(req.params);
+        console.log(req.params.note)
+    fs.readFile('./db/db.json', 'utf8', function read(err, data) {
+        if (err) {
+            throw err;
+        }
+       let notes = JSON.parse(data);
+       console.log(notes);
+       notes.splice(req.body);
+       console.log(req.body);
+
+       fs.writeFile('./db/db.json', JSON.stringify(notes), err => {
+        console.log(err);
+        })
+    });
+})
 
 
 // HTML Routes

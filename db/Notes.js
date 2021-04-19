@@ -37,3 +37,5 @@ class Notes {
 }
 
 module.exports = new Notes();
+
+[{"title": "hi", "text": "hi"}]
