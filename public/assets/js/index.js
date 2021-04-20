@@ -131,6 +131,7 @@ const renderNoteList = async (notes) => {
   // Returns HTML element with or without a delete button
   const createLi = (text, delBtn = true) => {
     const liEl = document.createElement('li');
+   
     liEl.classList.add('list-group-item');
 
     const spanEl = document.createElement('span');

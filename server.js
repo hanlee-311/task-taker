@@ -23,32 +23,32 @@ app.post('/api/notes', (req, res) => {
         if (err) {
             throw err;
         }
-       let notes = JSON.parse(data);
-       notes.push(req.body);
-
-       fs.writeFile('./db/db.json', JSON.stringify(notes), err => {
-        console.log(err);
+        let notes = JSON.parse(data);
+        notes.push(req.body);
+        fs.writeFile('./db/db.json', JSON.stringify(notes), err => {
+            console.log(err);
+            res.json(req.body)
         })
     });
 });
 
-app.delete('/api/notes/:note', (req, res) => {
+app.delete('/api/notes/:id', (req, res) => {
         // user wants to delete a note
         // which note do they want to delete?
         // edit our "DB" to reflect the delete
 
-        console.log(req.params);
-        console.log(req.params.note)
     fs.readFile('./db/db.json', 'utf8', function read(err, data) {
         if (err) {
             throw err;
         }
        let notes = JSON.parse(data);
        console.log(notes);
-       notes.splice(req.body);
-       console.log(req.body);
+       let newNotes = notes.filter((note) => {
+           return req.params.id !== note.id;
+       })
+       console.log(newNotes)
 
-       fs.writeFile('./db/db.json', JSON.stringify(notes), err => {
+       fs.writeFile('./db/db.json', JSON.stringify(newNotes), err => {
         console.log(err);
         })
     });
