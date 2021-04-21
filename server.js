@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const notesData = require('./db/db.json');
 const fs = require('fs');
+const { v4: uuidv4 } = require('uuid');
 // const viewRoutes = require('./routes/view');
 // const apiRoutes = require('./routes/api');
 
@@ -27,6 +28,7 @@ app.post('/api/notes', (req, res) => {
         console.log("Step 1" , req.body);
 
         let notes = JSON.parse(data);
+        req.body.id = uuidv4();
         notes.push(req.body);
         console.log('new', notes);
         fs.writeFile('./db/db.json', JSON.stringify(notes), err => {
@@ -56,6 +58,7 @@ app.delete('/api/notes/:id', (req, res) => {
 
        fs.writeFile('./db/db.json', JSON.stringify(newNotes), err => {
         console.log(err);
+        res.json(req.body);
         })
     });
 })
