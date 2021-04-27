@@ -23,7 +23,6 @@ app.get('/api/notes', (req, res) => {
         if (err) {
             throw err;
         }
-        console.log(parsedata);
         res.json(parsedata);
     })
 });
@@ -34,12 +33,9 @@ app.post('/api/notes', (req, res) => {
             throw err;
         }
 
-        console.log("Step 1", req.body);
-
         let notes = JSON.parse(data);
         req.body.id = uuidv4();
         notes.push(req.body);
-        console.log('new', notes);
         fs.writeFile('./db/db.json', JSON.stringify(notes), err => {
             if (err) {
                 throw err;
@@ -59,11 +55,9 @@ app.delete('/api/notes/:id', (req, res) => {
             throw err;
         }
         let notes = JSON.parse(data);
-        console.log(notes);
         let newNotes = notes.filter((note) => {
             return req.params.id !== note.id;
         })
-        console.log(newNotes)
 
         fs.writeFile('./db/db.json', JSON.stringify(newNotes), err => {
             console.log(err);
